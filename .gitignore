@@ -1,0 +1,10 @@
+# Ignorar arquivos brutos da marca e pacotes zip pesados (>25MB limite Cloudflare Pages)
+*.zip
+*.pdf
+/*.jpg
+Fontes/
+MarcaHorizontal/
+MarcaPrincipal/
+Materiais/
+.DS_Store
+Thumbs.db
