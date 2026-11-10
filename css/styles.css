@@ -870,19 +870,60 @@ p {
   stroke-width: 2;
 }
 
-.atuacao-image {
+.atuacao-slideshow {
+  position: relative;
   max-width: 480px;
   width: 100%;
+  aspect-ratio: 4 / 5;
   margin-inline: auto;
   overflow: hidden;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-elevated);
 }
 
-.atuacao-image img {
+.atuacao-slideshow img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  height: 100%;
   object-fit: cover;
-  object-position: center 22%;
+  object-position: center 20%;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out, transform 6s ease-out;
+  transform: scale(1.03);
+}
+
+.atuacao-slideshow img.active {
+  opacity: 1;
+  z-index: 2;
+  transform: scale(1);
+}
+
+/* ============================================
+   ANIMAÇÕES DE ROLAGEM (FADE-IN / REVEAL)
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
 }
 
 /* ============================================
@@ -925,6 +966,14 @@ p {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+  opacity: 0.45;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.passo-item.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .passo-num {
@@ -939,6 +988,13 @@ p {
   font-family: var(--font-serif);
   font-size: 1.25rem;
   font-weight: 600;
+  transition: background-color 0.45s ease, border-color 0.45s ease, transform 0.45s ease;
+}
+
+.passo-item.active .passo-num {
+  background-color: var(--color-terracotta);
+  border-color: var(--color-terracotta);
+  transform: scale(1.06);
 }
 
 .passo-text {
@@ -948,6 +1004,12 @@ p {
   border-radius: var(--radius-md);
   padding: 1.25rem 1.4rem;
   flex: 1;
+  transition: background-color 0.45s ease, border-color 0.45s ease;
+}
+
+.passo-item.active .passo-text {
+  background: rgba(255, 255, 255, 0.09);
+  border-left-color: var(--color-terracotta);
 }
 
 .passo-title {
@@ -1599,7 +1661,24 @@ p {
 
 @media (min-width: 992px) {
   :root {
-    --header-height: 72px;
+    --header-height: 76px;
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    background: transparent;
+    border-bottom-color: transparent;
+    transition: background-color 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+  }
+
+  .site-header.scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom-color: var(--color-sage);
+    box-shadow: 0 4px 24px rgba(24, 54, 79, 0.08);
   }
 
   .section-padding {
@@ -1620,6 +1699,11 @@ p {
     gap: clamp(0.75rem, 1.5vw, 1.5rem);
     padding: 0;
     border: 0;
+    background: transparent;
+  }
+
+  .site-header:not(.scrolled) .header-nav a:not(.header-cta) {
+    text-shadow: 0 1px 10px rgba(255, 255, 255, 0.7);
   }
 
   .header-nav a:not(.header-cta) {
@@ -1636,14 +1720,14 @@ p {
 
   .hero-grid {
     max-width: none;
-    min-height: clamp(31rem, calc(100svh - var(--header-height)), 48rem);
+    min-height: clamp(39rem, 100svh, 54rem);
     padding: 0;
     grid-template-columns: minmax(0, 54fr) minmax(0, 46fr);
     gap: 0;
   }
 
   .hero-content {
-    padding: 3rem 2rem 3rem max(2rem, calc((100vw - var(--max-width)) / 2 + 2rem));
+    padding: calc(var(--header-height) + 2.5rem) 2rem 3rem max(2rem, calc((100vw - var(--max-width)) / 2 + 2rem));
   }
 
   .hero-label {
@@ -1676,7 +1760,7 @@ p {
     inset: 0;
     height: 100%;
     aspect-ratio: auto;
-    object-position: center 65%;
+    object-position: center 14%;
     border-radius: 0;
   }
 
