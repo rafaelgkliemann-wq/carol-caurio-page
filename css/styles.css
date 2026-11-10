@@ -342,8 +342,8 @@ p {
    FAIXA DE IDENTIFICAÇÃO DE SINTOMAS
    ============================================ */
 .sintomas-strip {
-  padding: 1rem 0 2.5rem;
-  background: var(--color-white);
+  padding: 0 0 1.5rem;
+  background: linear-gradient(to bottom, var(--color-white) 0%, var(--color-white) 50%, var(--color-cream) 50%, var(--color-cream) 100%);
   position: relative;
   z-index: 3;
 }
@@ -650,6 +650,54 @@ p {
   line-height: 1.45;
 }
 
+/* Bioimpedância Featured Horizontal Card (Full Vertical Image + Text Side-by-Side) */
+.proc-bio-card {
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-bottom: 2rem;
+}
+
+.proc-bio-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--color-cream);
+}
+
+.proc-bio-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%;
+}
+
+.proc-img-tag {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background: rgba(24, 54, 79, 0.92);
+  color: var(--color-white);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: var(--radius-pill);
+  backdrop-filter: blur(8px);
+}
+
+.proc-bio-body {
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.proc-bio-cta {
+  margin-top: 1.5rem;
+}
+
 /* Secondary Procedures Grid */
 .proc-secondary-grid {
   display: grid;
@@ -669,43 +717,6 @@ p {
 .proc-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--shadow-elevated);
-}
-
-.proc-card-with-img {
-  padding: 0;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.proc-card-image {
-  position: relative;
-  height: 270px;
-  overflow: hidden;
-}
-
-.proc-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 22%;
-}
-
-.proc-img-tag {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-  background: rgba(24, 54, 79, 0.9);
-  color: var(--color-white);
-  font-size: 0.76rem;
-  font-weight: 600;
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-pill);
-  backdrop-filter: blur(8px);
-}
-
-.proc-card-body {
-  padding: 1.75rem 1.5rem;
 }
 
 .proc-kicker {
@@ -1760,7 +1771,7 @@ p {
     inset: 0;
     height: 100%;
     aspect-ratio: auto;
-    object-position: center 14%;
+    object-position: center 38%;
     border-radius: 0;
   }
 
@@ -1789,8 +1800,26 @@ p {
     gap: 3rem;
   }
 
+  .proc-bio-card {
+    grid-template-columns: minmax(320px, 0.4fr) 0.6fr;
+    align-items: stretch;
+  }
+
+  .proc-bio-image {
+    aspect-ratio: auto;
+    min-height: 480px;
+  }
+
+  .proc-bio-image img {
+    object-position: center 55%;
+  }
+
+  .proc-bio-body {
+    padding: 2.75rem 3rem;
+  }
+
   .proc-secondary-grid {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .areas > .container {
